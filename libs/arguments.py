@@ -35,5 +35,10 @@ def parse_arguments():
     parser.add_argument('--set_re', type=int, default=-1, help='reynolds number to generate data')
     parser.add_argument('--set_epoch', type=int, default=-1, help='set training epochs')
     parser.add_argument('--force_close_wandb', action='store_true', help='close wandb log.')
+    # Add to your argument parser
+    parser.add_argument('--load_observer', action='store_true', help='Load a pre-trained observer model')
+    parser.add_argument('--observer_model_path', type=str, default='./outputs/observer_model.pth', help='Path to pre-trained observer model')
+    parser.add_argument('--load_policy', action='store_true', help='Load a pre-trained policy model')
+    parser.add_argument('--policy_model_path', type=str, default='./outputs/policy_model.pth', help='Path to pre-trained policy model')
     args = parser.parse_args()
     return args
