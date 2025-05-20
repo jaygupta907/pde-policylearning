@@ -21,6 +21,7 @@ from libs.metrics import *
 from tqdm import tqdm
 from torch.optim import Adam
 from run_control import run_control
+import os
 
 torch.manual_seed(0)
 np.random.seed(0)
@@ -126,6 +127,31 @@ def main(args, sample_data=False, train_shuffle=True):
                                      act='gelu', pad_ratio=0.0625, in_dim=1, ).cuda()
     else:
         raise RuntimeError()
+
+    ################################################################
+    # loading pre-trained model if needed
+    ################################################################
+    
+    if args.load_observer:
+        observer_model_path = args.observer_model_path
+        print(f"Loading pre-trained observer model from {observer_model_path}")
+        if os.path.exists(observer_model_path):
+            observer_model = torch.load(observer_model_path)
+            print("Observer model loaded successfully!")
+        else:
+            print(f"Warning: Observer model path {observer_model_path} not found. Using newly initialized model.")
+    
+    if args.load_policy and policy_model is not None:
+        policy_model_path = args.policy_model_path
+        print(f"Loading pre-trained policy model from {policy_model_path}")
+        if os.path.exists(policy_model_path):
+            policy_model = torch.load(policy_model_path)
+            print("Policy model loaded successfully!")
+        else:
+            print(f"Warning: Policy model path {policy_model_path} not found. Using newly initialized model.")
+
+    if policy_model is None:
+        print(f"Using '{args.policy_name}' without a learned policy model")
     
     ################################################################
     # training and validation
