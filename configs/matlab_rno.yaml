@@ -38,8 +38,8 @@ bc_type: original
 
 # policy setups
 policy_name:
-  # - gt
-  - optimal-observer
+  - gt
+  # - optimal-observer
   # - rno
   # - rand
   # - unmanipulated

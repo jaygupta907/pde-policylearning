@@ -29,7 +29,7 @@ np.random.seed(0)
 
 def main(args, sample_data=False, train_shuffle=True):
     if not args.close_wandb:
-        wandb.login(key='05f0a1690d6802d6714bfe7d8aea302e690f7c27')
+        wandb.login(key='0d7ca5dd596d99f5ca1593f7aa97421bf844080a')
     if type(args.policy_name) == list:
         policy_list = args.policy_name[:]
         for policy_name in policy_list:  # compare different methods

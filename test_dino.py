@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import matplotlib
-from ode_model import Decoder, Derivative
-from network import SetEncoder
+from libs.DINo.ode_model import Decoder, Derivative
+from libs.DINo.network import SetEncoder
 from datetime import datetime
 import getopt
 import sys
@@ -23,12 +23,12 @@ import logging
 from torch import nn
 import matplotlib.pyplot as plt
 import torch
-from utils import process_config, set_rdm_seed, create_logger, write_image, eval_dino, eval_dino_cond
+from libs.DINo.utils import process_config, set_rdm_seed, create_logger, write_image, eval_dino, eval_dino_cond
 
 logging.getLogger('numba').setLevel(logging.CRITICAL)
 logging.getLogger("matplotlib.font_manager").disabled = True
 logging.getLogger('PIL').setLevel(logging.WARNING)
-matplotlib.pyplot.set_loglevel("critical")
+plt.set_loglevel("critical")
 
 input_dataset = "navier"
 gpu = 0
