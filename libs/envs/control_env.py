@@ -37,10 +37,6 @@ class NSControlEnvMatlab:
         self.eng.addpath("./libs/matlab_codes")
         print("Lauching finished!")
         self.load_state(load_path=args.init_cond_path)
-        # dummy code of dump and load functions
-        save_path = './outputs/stable_flow.npy'
-        self.dump_state(save_path=save_path)
-        self.load_state(load_path=save_path)
         self.v_scale, self.w_scale = 10, 10
         self.V = self.V
         self.W = self.W
@@ -146,7 +142,7 @@ class NSControlEnvMatlab:
         scipy.io.savemat(save_path, mat_data)
         return
     
-    def load_state(self, load_path='./data/channel180_minchan.mat'):
+    def load_state(self, load_path='./data/channel180_minchan_mf.mat'):
         # Load the .mat file
         mat_data = scipy.io.loadmat(load_path, mat_dtype=True)
         # Access the fields

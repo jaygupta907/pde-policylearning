@@ -27,8 +27,7 @@ np.random.seed(0)
 ################################################################
 fill_width = 6
 root_dir = './data'
-# mat_name = 'planes_channel180_minchan'
-mat_name = 'planes-001'
+mat_name = 'channel180_minchan_mf'
 minchan = 'minchan' in mat_name
 mat_path = os.path.join(root_dir, mat_name + '.mat')
 save_dir = os.path.join(root_dir, mat_name)

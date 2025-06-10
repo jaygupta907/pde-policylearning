@@ -45,7 +45,7 @@ def main(args, sample_data=False, train_shuffle=True):
         run_control(args, observer_model=None, wandb_exist=False)
         return
     args.using_transformer = 'Transformer' in args.model_name
-    assert args.model_name in ['UNet', 'RNO2dObserver', 'PINObserverFullField', 'FNO2dObserverOld', 'FNO2dObserver', 'Transformer2D'],  "Model not supported!"
+    assert args.model_name in ['UNet', 'RNO2dObserver', 'PINObserverFullField','FNO2dObserver', 'Transformer2D'],  "Model not supported!"
     
     ################################################################
     # create env when using physics-informed learning
@@ -96,9 +96,7 @@ def main(args, sample_data=False, train_shuffle=True):
     # create observer model
     ################################################################
     
-    if args.model_name == 'FNO2dObserverOld':
-        observer_model = FNO2dObserverOld(args.modes, args.modes, args.width, use_v_plane=args.use_v_plane).cuda()
-    elif args.model_name == 'FNO2dObserver':
+    if args.model_name == 'FNO2dObserver':
         observer_model = FNO2dObserver(args.modes, args.modes, args.width, use_v_plane=args.use_v_plane).cuda()
     elif args.model_name == 'RNO2dObserver':
         observer_model = RNO2dObserver(args.modes, args.modes, args.width, recurrent_index=args.recurrent_index, layer_num=args.layer_num).cuda()
