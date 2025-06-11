@@ -77,7 +77,6 @@ def run_control(args, observer_model=None, policy_model=None, train_dataset=None
     for one_v in args.display_variables:
         exp_name += one_v + "_"
         exp_name += str(config_dict[one_v])
-        exp_name += "; "
 
     if not args.close_wandb and not wandb_exist:
         print("Init wandb!")
@@ -291,7 +290,7 @@ def run_control(args, observer_model=None, policy_model=None, train_dataset=None
                 metadata[field_name] = {}
                 metadata[field_name]['mean'] = np.array(all_dudt).mean(0)
                 metadata[field_name]['std'] = np.array(all_dudt).std(0)
-        if abs(control_env.reward_div()) > 10:
+        if abs(control_env.reward_div()) > 100:
             raise RuntimeError("Control exploded!")
         side_pressure, reward, done, info = control_env.step(opV1, opV2)
         

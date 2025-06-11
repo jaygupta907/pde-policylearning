@@ -368,8 +368,6 @@ class NSControlEnvMatlab:
         side_view = visualize_pressure_speed(side_pressure, pressure_min=-0.005, pressure_max=0.005, \
             speed_horizontal=w_in_yz, speed_vertical=v_in_yz, vis_img=vis_img, vis_name='side', \
                 quiver_scale=0.03, x_sample_interval=2, y_sample_interval=2)
-        if vis_img:
-            import pdb; pdb.set_trace()
         return top_view, front_view, side_view
     
     def plot_spatial_distribution(self, step_index):
@@ -443,6 +441,7 @@ class NSControlEnvMatlab:
         Fu = - (UU - torch.cat([UU[-1, :, :][None, :], UU[:-1, :, :]], dim=0)) / dx
         # compute -d(uv)/dy
         UV = (0.5 * (V + torch.cat([V[-1, :, :][None, :], V[:-1, :, :]], dim=0))) * (0.5 * (U[:, :-1, :] + U[:, 1:, :]))
+
         for i in range(1, self.Ny):
             Fu[:, i, :] -= (UV[:, i, :] - UV[:, i-1, :]) / (y[i] - y[i-1])
         
@@ -621,11 +620,10 @@ class NSControlEnvMatlab:
     ################################################################
     
     def pde_loss(self, U, Vgt, V, W, dPdx):
-        import pdb; pdb.set_trace()
         Fu_gt, Fv_gt, Fw_gt = self.compute_rhs_py(U, Vgt, W, dPdx)
         Fu_pred, Fv_pred, Fw_pred = self.compute_rhs_py(U, V, W, dPdx)
+        
         pde_loss = (Fu_gt - Fu_pred).norm() + (Fv_gt - Fv_pred).norm() + (Fw_gt - Fw_pred).norm()
-        import pdb; pdb.set_trace()
         return pde_loss
 
     ################################################################

@@ -342,7 +342,8 @@ def main():
     # plt.streamplot(X[::2, ::2], Y[::2, ::2], u_next[::2, ::2], v_next[::2, ::2], color="black")
     plt.xlim((0, 1))
     plt.ylim((0, 1))
-    plt.show()
+    plt.savefig("cfd_simulation.png", dpi=300, bbox_inches="tight")
+    plt.close()
 
 
 if __name__ == "__main__":
