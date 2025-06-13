@@ -152,7 +152,7 @@ class NSControlEnvMatlab:
         self.xm = mat_data['xm']
         self.ym = mat_data['ym']
         self.zm = mat_data['zm']
-        
+
         # Global variables
         self.dPdx = 0.57231059E-01**2  # pressure gradient (utau^2)
         self.dt = 0.001  # time step
@@ -631,6 +631,7 @@ class NSControlEnvMatlab:
     ################################################################
     
     def step(self, opV1, opV2):
+        print(f"Bottom action : {opV1.shape}  Top action : {opV2.shape}")
         self.step_rk3(opV1, opV2)
         p1, p2 = self.get_boundary_pressures()
         u_velocity = self.cal_bulk_v()

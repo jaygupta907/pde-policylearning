@@ -1,0 +1,119 @@
+{
+    "general": {
+        "case_name": "Channel3DEnv",
+        "end_time": 1000.0,
+        "save_path": "./results",
+        "save_dt": 25.0
+    },
+    "restart": {
+        "flag": false,
+        "is_interpolate": false,
+        "file_path": "/local/disk/dbezgin/jaxfluids/tests/rl/03_turbulentchannel3D_env/results/Channel3DEnv-6/domain/data_1000.0001238055.h5",
+        "numerical_setup_path": "/p/project1/gencfd/dbezgin/TURBULENT_CHANNEL/01_incompressible/results/slurm-20/CHANNEL_RE395/numerical_setup.json",
+        "case_setup_path": "/p/project1/gencfd/dbezgin/TURBULENT_CHANNEL/01_incompressible/results/slurm-20/CHANNEL_RE395/CHANNEL_RE395.json"
+    },
+    "domain": {
+        "x": {
+            "cells": 64,
+            "range": [
+                0.0,
+                1.77
+            ]
+        },
+        "y": {
+            "cells": 96,
+            "range": [
+                -1.0,
+                1.0
+            ],
+            "stretching": {
+                "type": "CHANNEL",
+                "parameters": {
+                    "tanh_value": 1.9
+                }
+            }
+        },
+        "z": {
+            "cells": 96,
+            "range": [
+                0.0,
+                0.89
+            ]
+        },
+        "decomposition": {
+            "split_x": 1,
+            "split_y": 1,
+            "split_z": 1
+        }
+    },
+    "boundary_conditions": {
+        "east": {"type": "PERIODIC"},
+        "west": {"type": "PERIODIC"},
+        "north": {
+            "type": "WALL",
+            "wall_velocity_callable": {
+                "u": 0.0,
+                "v": 0.0,
+                "w": 0.0
+            }
+        },
+        "south": {
+            "type": "WALL",
+            "wall_velocity_callable": {
+                "u": 0.0,
+                "v": 0.0,
+                "w": 0.0
+            }
+        },
+        "top": {"type": "PERIODIC"},
+        "bottom": {"type": "PERIODIC"}
+    },
+    "initial_condition": {
+        "turbulent": {
+            "case": "CHANNEL",
+            "random_seed": 0,
+            "parameters": {
+                "velocity_profile"  : "LAMINAR",
+                "U_ref"             : 1.0,
+                "noise_level"       : 0.1,
+                "T_ref"             : 1.0,
+                "rho_ref"           : 1.0
+            }
+        }
+    },
+    "forcings": {
+        "mass_flow": {
+            "target_value": 1.78,
+            "direction": "x"
+        },
+        "temperature": {"target_value": 1.0}
+    },
+    "material_properties": {
+        "equation_of_state": {
+            "model": "IdealGas",
+            "specific_heat_ratio": 1.4,
+            "specific_gas_constant": 7.9365079365
+        },
+        "transport": {
+            "dynamic_viscosity": {
+                "model": "CUSTOM",
+                "value": "lambda T: 2.0 / 21950.0 * T**0.75"
+            },
+            "bulk_viscosity": 0.0,
+            "thermal_conductivity": {
+                "model": "PRANDTL",
+                "prandtl_number": 0.7
+            }
+        }
+    },
+    "output": {
+        "primitives": ["density", "velocity", "pressure", "temperature"],
+        "miscellaneous": ["qcriterion", "vorticity"]
+    },
+    "statistics": {
+        "turbulence": {
+            "is_logging": true,
+            "case": "CHANNEL"
+        }
+    }
+}
